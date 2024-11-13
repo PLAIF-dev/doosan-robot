@@ -79,6 +79,7 @@ namespace dsr_control{
         as_(nh, name, boost::bind(&JointTrajectoryAction::trajectoryCallback, this, _1), false),
         action_name_(name)
     {
+        m_PubMotionFinishFlag = nh.advertise<std_msgs::Empty>("finish_flag",100);
         as_.start();
     }
 
@@ -143,12 +144,13 @@ namespace dsr_control{
             }
             ROS_INFO("[trajectory] [%02d : %.3f : %.3f] %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f", i, targetTime, step_duration.toSec(), rad2deg(goal->trajectory.points[i].positions[0]), rad2deg(goal->trajectory.points[i].positions[1]), rad2deg(goal->trajectory.points[i].positions[2]), rad2deg(goal->trajectory.points[i].positions[3]), rad2deg(goal->trajectory.points[i].positions[4]), rad2deg(goal->trajectory.points[i].positions[5]));
 
-            Drfl.MoveJAsync(degrees.data(), 50, 50, step_duration.toSec()+0.25, MOVE_MODE_ABSOLUTE, BLENDING_SPEED_TYPE_OVERRIDE);
+            Drfl.MoveJAsync(degrees.data(), 50, 50, step_duration.toSec()+1.0, MOVE_MODE_ABSOLUTE, BLENDING_SPEED_TYPE_OVERRIDE);
 
-            // ros::Time::sleepUntil(begin + d - ros::Duration(0.5));
-            ros::Time::sleepUntil(begin + d);
+            ros::Time::sleepUntil(begin + d - ros::Duration(0.5));
         }
         Drfl.MoveWait();
+        std_msgs::Empty msg;
+        m_PubMotionFinishFlag.publish(msg);
         // ROS_INFO("CALLING MOVESJ");
         // Drfl.movesj(fTargetPos, nCntTargetPos, 0.0, 0.0, targetTime, (MOVE_MODE)MOVE_MODE_ABSOLUTE);
         // ROS_INFO("CALLED MOVESJ");

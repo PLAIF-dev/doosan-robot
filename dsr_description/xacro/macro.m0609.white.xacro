@@ -13,6 +13,11 @@
 				<inertia ixx="0.017789" ixy="-7.4356e-06" ixz="3.0378e-06" iyy="0.011135"
 					iyz="-0.00029038"
 					izz="0.020054"/>
+				<collision>
+						<geometry>
+								<cylinder radius="0.08" length="0.01"/>
+						</geometry>
+				</collision>
 			</inertial>
 			<visual>
 				<origin rpy="0 0 0" xyz="0 0 0" />
@@ -207,6 +212,27 @@
 			</visual>
 		</link>
 
+		<!-- joint gripper -->
+		<joint name="joint_gripper" type="fixed">
+			<parent link="link6" />
+			<child link="link_gripper" />
+			<origin xyz="0 0 0.28" rpy="0 0 0" />  <!-- gripper length: 0.28m -->
+			<axis xyz="0 0 0" />
+		</joint>
+		<link name="link_gripper">
+			<inertial>
+				<mass value="0.3"/>
+				<origin xyz="0 0 0"/>
+				<inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://dsr_description/meshes/gripper/plaif/gripper.dae" scale="0.001 0.001 0.001"/>
+				</geometry>
+				<color rgba="1.0 1.0 1.0 0.8"/>
+			</visual>
+		</link>
     <xacro:dsr_transmission />
     <xacro:dsr_gazebo namespace="${namespace}" />
 

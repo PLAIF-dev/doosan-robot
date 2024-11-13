@@ -518,6 +518,7 @@ namespace dsr_control{
         // create messages that are used to published feedback/result
         control_msgs::FollowJointTrajectoryFeedback feedback_;
         control_msgs::FollowJointTrajectoryResult result_;
+        ros::Publisher m_PubMotionFinishFlag;
 
     public:
         JointTrajectoryAction(ros::NodeHandle nh, std::string name);
