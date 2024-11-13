@@ -19,10 +19,10 @@
         <joint name="joint_gripper" />
     </group>
     <group name="manipulator">
-        <chain base_link="base_0" tip_link="link_gripper" />
+        <chain base_link="base_link" tip_link="link_gripper" />
     </group>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
-    <disable_collisions link1="base_0" link2="link1" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="link1" reason="Adjacent" />
     <disable_collisions link1="link1" link2="link2" reason="Adjacent" />
     <disable_collisions link1="link1" link2="link3" reason="Never" />
     <disable_collisions link1="link2" link2="link3" reason="Adjacent" />

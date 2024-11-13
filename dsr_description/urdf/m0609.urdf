@@ -21,10 +21,10 @@
   <link name="base"/>
   <joint name="fixed" type="fixed">
     <parent link="base"/>
-    <child link="base_0"/>
+    <child link="base_link"/>
   </joint>
   
-  <link name="base_0">
+  <link name="base_link">
 	<inertial>
 	  <mass value="3.722"/>
 	  <origin xyz="-1.2e-05 -6e-05 0.050723"/>
@@ -40,7 +40,7 @@
   </link>
 
   <joint name="joint1" type="revolute">
-    <parent link="base_0"/>
+    <parent link="base_link"/>
     <child link="link1"/>
     <origin rpy="0 0 0" xyz="0 0 0.1525"/>
     <axis xyz="0 0 1"/>
